@@ -7,7 +7,7 @@ class appViewModel():
         self.angle = 0
         self.speed = 100
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.addressPort = ('192.168.1.189', appViewModel.port)
+        self.addressPort = ('192.168.0.106', appViewModel.port)
 
     def getAngle(self):
         return self.angle
