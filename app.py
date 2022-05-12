@@ -91,29 +91,69 @@ class App(QWidget):
         self.Ilabel = QLabel('I')
         gridLayout.addWidget(self.Ilabel, 1, 0, 1, -1)
 
-        self.iDivText = QLineEdit("ID")
-        self.iDivText.setValidator(QIntValidator(0, 100, self))
+        self.iDivText = QLineEdit()
+        self.iDivText.textChanged.connect(self.intDivChanged)
         gridLayout.addWidget(self.iDivText, 2, 0)
 
-        self.iMultText = QLineEdit("IM")
-        self.iMultText.setValidator(QIntValidator(0, 100, self))
+        self.iMultText = QLineEdit()
+        self.iMultText.textChanged.connect(self.intMultChanged)
         gridLayout.addWidget(self.iMultText, 2, 1)
 
         self.Ilabel = QLabel('P')
         gridLayout.addWidget(self.Ilabel, 3, 0, 1, -1)
 
-        self.pDivText = QLineEdit("PD")
-        self.pDivText.setValidator(QIntValidator(0, 100, self))
+        self.pDivText = QLineEdit()
+        self.pDivText.textChanged.connect(self.pDivChanged)
         gridLayout.addWidget(self.pDivText, 4, 0)
 
-        self.pMultText = QLineEdit("PM")
-        self.pMultText.setValidator(QIntValidator(0, 100, self))
+        self.pMultText = QLineEdit()
+        self.pMultText.textChanged.connect(self.pMultChanged)
         gridLayout.addWidget(self.pMultText, 4, 1)
 
         self.pidButton = QPushButton(text="set")
+        self.pidButton.clicked.connect(self.setPIDClicked)
         gridLayout.addWidget(self.pidButton)
 
         self.show()
+
+    def setPIDClicked(self):
+        self.vm.setPID()
+
+    def intMultChanged(self):
+        value = self.iMultText.text()
+        if value == '':
+            return
+        self.vm.setIMult(int(value))
+
+    def intDivChanged(self):
+        value = self.iDivText.text()
+        if value == '':
+            return
+        self.vm.setIDiv(int(value))
+
+    def pMultChanged(self):
+        value = self.pMultText.text()
+        if value == '':
+            return
+        self.vm.setPMult(int(value))
+
+    def pDivChanged(self):
+        value = self.pDivText.text()
+        if value == '':
+            return
+        self.vm.setPDiv(int(value))
+
+    def dMultChanged(self):
+        value = self.dMultText.text()
+        if value == '':
+            return
+        self.vm.setDMult(int(value))
+
+    def dDivChanged(self):
+        value = self.dDivText.text()
+        if value == '':
+            return
+        self.vm.setDDiv(int(value))
 
     def zeroButtonClicked(self):
         self.vm.zeroArm()

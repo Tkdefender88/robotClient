@@ -15,7 +15,43 @@ class appViewModel():
         self.dMult = 0
         self.dDiv  = 0
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.addressPort = ('192.168.0.106', appViewModel.port)
+        self.addressPort = ('192.168.0.105', appViewModel.port)
+
+    def setIMult(self, value):
+        self.iMult = value
+
+    def setIDiv(self, value):
+        self.iDiv= value
+
+    def setPMult(self, value):
+        self.pMult = value
+
+    def setPDiv(self, value):
+        self.pDiv= value
+
+    def setDMult(self, value):
+        self.dMult = value
+
+    def setDDiv(self, value):
+        self.dDiv= value
+    
+    def getIMult(self):
+        return self.iMult
+
+    def getIDiv(self):
+        return self.iDiv
+
+    def getPMult(self):
+        return self.pMult
+
+    def getPDiv(self):
+        return self.pDiv
+
+    def getDMult(self):
+        return self.dMult
+
+    def getDDiv(self):
+        return self.dDiv
 
     def getAngle(self):
         return self.angle
@@ -39,7 +75,7 @@ class appViewModel():
 
     def sendAngleStart(self):
         msg = "{command} {angle} {speed}"
-        msg = msg.format(command=165, angle=self.angle, speed=self.speed)
+        msg = msg.format(command=165, angle=(round(self.angle // 0.6)), speed=self.speed)
         msg = str.encode(msg)
         self.socket.sendto(msg, self.addressPort)
 
@@ -54,4 +90,6 @@ class appViewModel():
             dm=self.dMult,
             dd=self.dDiv
         )
+        print(msg)
+        msg = str.encode(msg)
         self.socket.sendto(msg, self.addressPort)
